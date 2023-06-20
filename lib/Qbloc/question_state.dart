@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:equatable/equatable.dart';
 import 'package:question_paper/model/questionmodel.dart';
 

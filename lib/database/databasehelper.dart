@@ -8,19 +8,19 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 String coloumn_option = 'options';
+String question_Table = 'question_table';
+String id = 'id';
+String coloumn_question = 'question';
+String coloumn_correctAnswer = 'correctAnswer';
+String coloumn_explanation = 'explanation';
+String coloumn_result = 'result';
+String coloumn_selectedAnswer = 'selectedAnswer';
 
 class DatabaseHelper {
   static Database? _database;
   static DatabaseHelper? _databaseHelper; //SINGLETON DataBase-HELPER
   StreamController<List<Map<String, dynamic>>>? _controller;
   DatabaseHelper._createInstance(); //NAMED CONST TO CREATE INSTANCE OF THE DBHELPER
-
-  String question_Table = 'question_table';
-  String id = 'id';
-  String coloumn_question = 'question';
-  String coloumn_correctAnswer = 'correctAnswer';
-  String coloumn_explanation = 'explanation';
-  String coloumn_result = 'result';
 
   factory DatabaseHelper() {
     _databaseHelper ??= DatabaseHelper._createInstance();
@@ -53,7 +53,8 @@ class DatabaseHelper {
       $coloumn_question TEXT,
       $coloumn_correctAnswer TEXT,
       $coloumn_explanation TEXT,
-      $coloumn_result TEXT
+      $coloumn_result INTEGER,
+      $coloumn_selectedAnswer TEXT   
     )
   ''');
   }
@@ -95,6 +96,7 @@ class DatabaseHelper {
           correctAnswer: questionMap['correctAnswer'],
           explanation: questionMap['explanation'],
           result: questionMap['result'],
+          selectedAnswer: questionMap['selectedAnswer'],
         );
 
         questionList.add(question);
@@ -129,11 +131,11 @@ class DatabaseHelper {
     await db.close();
   }
 
-  Future<List<Map<String, dynamic>>> getData() async {
-    final db = await instance;
+  // Future<List<Map<String, dynamic>>> getData() async {
+  //   final db = await instance;
 
-    return await db.query(question_Table);
-  }
+  //   return await db.query(question_Table);
+  // }
 
 //check already data in database return empty if not found any existing data
   Future<bool> isRecordExists(String? id) async {
@@ -148,38 +150,58 @@ class DatabaseHelper {
     return result.isNotEmpty;
   }
 
-  Future<void> updateAnswer(String questionId, String selectedAnswer) async {
+  Future<void> updateAnswer(
+      String questionId, int count, String selectedAnswer) async {
     Database db = await instance;
 
-    db.update(question_Table, {coloumn_result: selectedAnswer},
+    db.update(question_Table,
+        {coloumn_result: count, coloumn_selectedAnswer: selectedAnswer},
         where: '$id = ?', whereArgs: [questionId]);
     debugPrint(
-        'Update database with iD $questionId and result is $selectedAnswer');
+        'Update database with iD $questionId and count is $count and answer is-$selectedAnswer');
   }
 
 //get the correct answer from database using ID
-  Future<List<Map<String, dynamic>>> getValueById(String? questionId) async {
+  Future<String> getValueById(String? questionId) async {
     final db = await instance;
     final List<Map<String, dynamic>> result = await db.query(
-      question_Table, columns: [coloumn_result],
+      question_Table, columns: [coloumn_selectedAnswer],
       where: '$id = ?', // Use the ID column name
       whereArgs: [questionId], // Pass the ID as the argument
-      // limit: 1, // Limit the query to one result
+      limit: 1, // Limit the query to one result
+    );
+
+    if (result.isNotEmpty) {
+      final row = result.first;
+      return row[coloumn_selectedAnswer] ??
+          "No value in dB"; // Return the value of the specified column
+      // return result;
+    } else {
+      debugPrint("No matching result found in databse");
+      return "No value in dB"; // Return an empty list
+    }
+  }
+
+//get the correct answer from database using ID
+  Future<List<Map<String, dynamic>>> getTotalNumber() async {
+    final db = await instance;
+    final List<Map<String, dynamic>> result = await db.query(
+      question_Table,
+      columns: [coloumn_result],
     );
 
     if (result.isNotEmpty) {
       // final row = result.first;
-      // return row[coloumn_result]; // Return the value of the specified column
-      return result;
+      return result; // Return the value of the specified column
+      // return result;
     } else {
       debugPrint("No matching result found in databse");
       return []; // Return an empty list
     }
   }
 
-  Future<List<Map<String, Object?>>> getIDResultfromColumn() async {
+  Future<List<Map<String, Object?>>> getUserAnswerUsingID() async {
     final db = await instance;
-
     final result =
         await db.query(question_Table, columns: [id, coloumn_result]);
 

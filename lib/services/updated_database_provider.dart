@@ -3,14 +3,17 @@ import 'package:question_paper/database/databasehelper.dart';
 import 'package:question_paper/model/questionmodel.dart';
 
 class GetUpdateDataFromDatabase extends ChangeNotifier {
-  List<QuestionModel> _data = [];
   final DatabaseHelper db = DatabaseHelper();
 
+  List<QuestionModel> _data = [];
   List<QuestionModel> get updatedDataList => _data;
-  bool _hasData =
-      false; //for checking database has data or it is corrently empty
 
+  bool _hasData = false;
+  //for checking database has data or it is corrently empty
   bool get hasData => _hasData;
+
+  String? _savedResult;
+  String? get savedResult => _savedResult;
 
   Future<void> getData() async {
     _data = await db.getNoteList();
@@ -19,6 +22,11 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
     } else {
       _hasData = false;
     }
+    notifyListeners();
+  }
+
+  Future<void> getSavedResult(String sved) async {
+    _savedResult = sved;
     notifyListeners();
   }
 
@@ -35,27 +43,33 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteData(String titles) async {
+  Future<void> deleteData(String id) async {
     debugPrint('start deleteing');
-    await db.deleteTable(titles);
+    await db.deleteTable(id);
     await getData();
   }
 
   Future<int?> getTotalDbCount() async {
     int? count = await db.getCount();
-
-    // await getData();
     return count;
   }
 
-  Future<void> updateSelectedAnswer(
-      {required String questionId, required String selectedAnswer}) async {
-    await db.updateAnswer(questionId, selectedAnswer);
-    await getData();
+  Future<List<Map<String, dynamic>>> getTotalresultCount() async {
+    return await db.getTotalNumber();
   }
 
-  Future<List<Map<String, Object?>>> getresultFromDb() async {
-    return await db.getIDResultfromColumn();
-    // await getData();
+  Future<void> updateSelectedAnswer(
+      {required String questionId,
+      required int count,
+      required String selectedAnswer}) async {
+    await db.updateAnswer(questionId, count, selectedAnswer);
+    await getData(); //after apdate recents answer call databse latest data
+  }
+
+  Future<String> getresultFromDdusingID(String questionid) async {
+    String answer = await db.getValueById(questionid);
+    // debugPrint('user answer in Database--$answer');
+
+    return answer;
   }
 }

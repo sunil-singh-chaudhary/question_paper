@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../Qbloc/question_cubit.dart';
 import '../services/updated_database_provider.dart';
+import 'answersScreen.dart';
 import 'question_paper.dart';
 
 class MyApp extends StatelessWidget {
@@ -37,7 +38,11 @@ class MyApp extends StatelessWidget {
                             listen: false);
 
                     if (databaseProvider.hasData) {
-                      return const QuestionPaper();
+                      return const Column(
+                        children: [
+                          QuestionPaper(),
+                        ],
+                      );
                     } else {
                       return const Text(
                           "No data Get From API"); // or show a different widget indicating no data

@@ -6,7 +6,8 @@ class QuestionModel {
   List<String>? options;
   String? correctAnswer;
   String? explanation;
-  String? result;
+  int? result;
+  String? selectedAnswer;
 
   QuestionModel({
     required this.id,
@@ -15,6 +16,7 @@ class QuestionModel {
     required this.correctAnswer,
     required this.explanation,
     required this.result,
+    required this.selectedAnswer,
   });
 
   QuestionModel copyWith({
@@ -23,7 +25,8 @@ class QuestionModel {
     List<String>? options,
     String? correctAnswer,
     String? explanation,
-    String? result,
+    int? result,
+    String? selectedAnswer,
   }) =>
       QuestionModel(
         id: id ?? this.id,
@@ -32,6 +35,7 @@ class QuestionModel {
         correctAnswer: correctAnswer ?? this.correctAnswer,
         explanation: explanation ?? this.explanation,
         result: result ?? this.result,
+        selectedAnswer: selectedAnswer ?? this.selectedAnswer,
       );
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
@@ -49,6 +53,7 @@ class QuestionModel {
       correctAnswer: json["correctAnswer"],
       explanation: json["explanation"],
       result: json["result"],
+      selectedAnswer: json["selectedAnswer"],
     );
   }
 
@@ -66,6 +71,7 @@ class QuestionModel {
       "correctAnswer": correctAnswer,
       "explanation": explanation,
       "result": result,
+      "selectedAnswer": selectedAnswer,
     };
   }
 
