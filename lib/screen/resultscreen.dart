@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:question_paper/screen/answersScreen.dart';
 
 import '../component/bottomnavigationsection.dart';
 import '../component/resultcontentsection.dart';
@@ -25,20 +24,16 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   @override
   Widget build(BuildContext context) {
+    //passing provider to next screen cause of different routes i.e
     final databaseProvider =
         Provider.of<GetUpdateDataFromDatabase>(context, listen: false);
-
+//calculate percent of success and failure
     final double successPercentage =
         (widget.correctAnswers / widget.totalQuestions) * 100;
     final double failedPercentage =
         (widget.incorrectAnswers / widget.totalQuestions) * 100;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Answer Sheet'),
-        ),
-      ),
       backgroundColor: const Color.fromARGB(244, 245, 249, 255),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

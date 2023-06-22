@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:question_paper/screen/mcq_screen.dart';
+import 'package:question_paper/services/lastpageUpdated_provider.dart';
 
 import '../Qbloc/question_cubit.dart';
 import '../services/updated_database_provider.dart';
@@ -41,6 +43,7 @@ class MyApp extends StatelessWidget {
                       return const Column(
                         children: [
                           QuestionPaper(),
+                          AnswerScreen(),
                         ],
                       );
                     } else {
@@ -50,6 +53,12 @@ class MyApp extends StatelessWidget {
                   },
                 ),
               ), //when app start it will fetch defaul db value
+              ChangeNotifierProvider(
+                create: (_) => lastPageProvider(),
+                child: MCQScreen(
+                  fromwhere: 'database',
+                ),
+              ),
             ],
             child: const QuestionPaper(),
           ),

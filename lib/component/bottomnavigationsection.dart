@@ -15,12 +15,12 @@ class BottomNavigationBarSection extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChangeNotifierProvider<
-                    GetUpdateDataFromDatabase>.value(
-                value:
-                    databaseProvider, // Provide the existing provider value to the new route
-                child: const AnswerScreen() //wrong answer
-                ),
+            builder: (context) =>
+                ChangeNotifierProvider<GetUpdateDataFromDatabase>.value(
+                    value: databaseProvider,
+                    // Provide the existing provider value to the new route
+                    child: const AnswerScreen() //wrong answer
+                    ),
           ),
         );
       },

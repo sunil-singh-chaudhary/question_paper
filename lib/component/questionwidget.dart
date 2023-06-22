@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:question_paper/model/questionmodel.dart';
+import 'package:question_paper/utils/custom_extension.dart';
 
 import '../services/updated_database_provider.dart';
 
@@ -11,8 +12,12 @@ class QuestionWidget extends StatefulWidget {
   String? selectedRadioAnswer;
   String? userSavedresult;
   List<bool> isSelectedList = List<bool>.filled(5, false);
-  QuestionWidget(
-      {super.key, required this.question, required this.onAnswerSelected});
+
+  QuestionWidget({
+    super.key,
+    required this.question,
+    required this.onAnswerSelected,
+  });
 
   @override
   State<QuestionWidget> createState() => _QuestionWidgetState();
@@ -26,14 +31,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start, //chagne gravity of options
         children: [
-          Text(
-            widget.question.question.toString(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(widget.question.question.toString(),
+              style: const TextStyle()
+                  .withColorAndSize(Colors.white, 22)), //custom extension
           const SizedBox(height: 16),
           Column(
             children: List.generate(
@@ -67,11 +67,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   // No value in the database, deselect all radio buttons
                   selectedValue = null;
                 }
-                // debugPrint("corrct-${widget.question.correctAnswer}");
-                // debugPrint("savedansw-${widget.userSavedresult}");
-                // widget.question.correctAnswer == widget.userSavedresult
-                //             ? const Color(0XFF001753)
-                //             : const Color.fromARGB(255, 11, 64, 197),
+
                 return Container(
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -85,9 +81,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       if (mounted) {
                         setState(() {
                           selectedValue = index;
-                          widget.onAnswerSelected(selectedValue!);
                         });
                       }
+                      widget.onAnswerSelected(
+                          selectedValue!); //callback for getting value selected
                       updateDatabasewithnewresult(selectedValue!, context);
                     },
                     title: Text(
@@ -106,9 +103,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                           if (mounted) {
                             setState(() {
                               selectedValue = value!;
-                              widget.onAnswerSelected(selectedValue!);
                             });
                           }
+                          widget.onAnswerSelected(selectedValue!); //callback
                           updateDatabasewithnewresult(selectedValue!, context);
                         },
                       ),
@@ -125,6 +122,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   void updateDatabasewithnewresult(int selectedvalue, BuildContext context) {
     final correctAnswer = widget.question.correctAnswer;
+    debugPrint('save daata in ddatabasse--> $correctAnswer');
     if (widget.question.options![selectedvalue] == correctAnswer) {
       Provider.of<GetUpdateDataFromDatabase>(context, listen: false)
           .updateSelectedAnswer(
@@ -141,11 +139,4 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               selectedAnswer: widget.question.options![selectedValue!]);
     }
   }
-
-  // String checkDatabasePreSelectedAnswer() async {
-  //   widget.userSavedresult =
-  //       await Provider.of<GetUpdateDataFromDatabase>(context)
-  //           .getresultFromDdusingID(widget.question.id!);
-  //   return widget.userSavedresult;
-  // }
 }

@@ -72,7 +72,8 @@ class DatabaseHelper {
     Database db = await instance;
     List<Map<String, dynamic>> x =
         await db.rawQuery("SELECT COUNT (*) FROM $question_Table");
-    int? result = Sqflite.firstIntValue(x);
+    int? result = Sqflite.firstIntValue(x) ?? 0;
+    debugPrint('no of data==$result');
     return result;
   }
 

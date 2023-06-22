@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:question_paper/Qbloc/question_cubit.dart';
 import 'package:question_paper/Qbloc/question_state.dart';
 import 'package:question_paper/screen/mcq_screen.dart';
+import 'package:question_paper/utils/custom_extension.dart';
 import '../services/updated_database_provider.dart';
+import '../utils/lotie_animatino_loading.dart';
 
 class QuestionPaper extends StatelessWidget {
   const QuestionPaper({super.key});
@@ -18,11 +20,15 @@ class QuestionPaper extends StatelessWidget {
         builder: (context, state) {
           if (state is QuestionInitial) {
             // Handle the initial state
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: LottieUtils.loadAnimationFromAsset('assets/loading.json'),
+            );
           } else if (state is QuestionLoading) {
             debugPrint('loading state');
             // Handle the loading state
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: LottieUtils.loadAnimationFromAsset('assets/loading.json'),
+            );
           } else if (state is onQuestionLoaded) {
             debugPrint('data Loaded state');
             // Handle the loaded state
@@ -45,14 +51,11 @@ class QuestionPaper extends StatelessWidget {
               ); //if serrver has erro show database data
             } else {
               return Center(
-                  child: Text(
-                'NO data Found $error',
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ));
+                child: Text(
+                  'NO data Found $error',
+                  style: const TextStyle().withColorAndSize(Colors.red, 22),
+                ), //using extension
+              );
             }
           }
 

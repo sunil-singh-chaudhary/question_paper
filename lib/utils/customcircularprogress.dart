@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:question_paper/utils/custom_extension.dart';
 
 class CustomCircularProgressIndicator extends StatelessWidget {
   final double successPercentage;
   final double failedPercentage;
 
   const CustomCircularProgressIndicator({
+    super.key,
     required this.successPercentage,
     required this.failedPercentage,
   });
@@ -39,20 +41,13 @@ class CustomCircularProgressIndicator extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  '${successPercentage.toStringAsFixed(1)}%',
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green),
-                ),
-                const Text(
-                  'Success',
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold),
-                ),
+                Text('${successPercentage.toStringAsFixed(1)}%',
+                    style: const TextStyle()
+                        .withColorAndSize(Colors.green, 15)), //using extension
+
+                Text('Success',
+                    style: const TextStyle()
+                        .withColorAndSize(Colors.green, 15)), //using extension
               ],
             ),
           ),

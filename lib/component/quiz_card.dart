@@ -24,8 +24,8 @@ class QuizCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Question: $position',
-              style: questionStyle,
+              'Question:${model.question} - ${model.id}',
+              // style: questionStyle,
             ),
             const SizedBox(height: 8),
             Text(
@@ -52,7 +52,7 @@ class QuizCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              model.selectedAnswer!,
+              model.selectedAnswer ?? 'no data',
               style: TextStyle(
                 fontSize: 16,
                 color: model.correctAnswer == model.selectedAnswer

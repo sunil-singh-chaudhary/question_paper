@@ -14,9 +14,6 @@ class AnswerScreen extends StatefulWidget {
 class _AnswerScreenState extends State<AnswerScreen> {
   @override
   Widget build(BuildContext context) {
-    final databaseProvider =
-        Provider.of<GetUpdateDataFromDatabase>(context, listen: false);
-    debugPrint('databaseProvider--${databaseProvider.updatedDataList.length}');
     return Consumer<GetUpdateDataFromDatabase>(
       builder: (context, value, child) {
         if (value.hasData) {
@@ -30,8 +27,8 @@ class _AnswerScreenState extends State<AnswerScreen> {
             },
           );
         } else {
-          return const Text(
-              "No data Get From API"); // or show a different widget indicating no data
+          return const Text("No data Found");
+          // or show a different widget indicating no data
         }
       },
     );
