@@ -3,8 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screen/myapp.dart';
+import 'utils/sharepref_countingpage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferencesService.initializeSharedPreferences();
+
   const kbackgroudColor = Colors.green;
   SystemChrome.setSystemUIOverlayStyle(
     // ignore: prefer_const_constructors
