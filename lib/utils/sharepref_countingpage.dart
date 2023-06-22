@@ -44,7 +44,7 @@ class SharedPreferencesService {
   }
 
   static gotoLastUserloadsharedpref(PageController _pageController) {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       SharedPreferencesService.getTotalQuestionCount().then(
         (value) {
           debugPrint('Jumped to value $value in shared preferences');
@@ -54,7 +54,7 @@ class SharedPreferencesService {
           if (value == 1) {
             nextPage = value;
           } else {
-            nextPage = value + 1;
+            nextPage = value + 1; //
           }
           debugPrint('Jumped to before index $nextPage in shared preferences');
 
@@ -62,7 +62,7 @@ class SharedPreferencesService {
             _pageController.animateToPage(
               nextPage,
               curve: Curves.easeIn,
-              duration: const Duration(milliseconds: 10),
+              duration: const Duration(milliseconds: 100),
             );
           }
 

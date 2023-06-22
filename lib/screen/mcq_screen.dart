@@ -88,8 +88,8 @@ class _TestMCQState extends State<MCQScreen> {
               Consumer<GetUpdateDataFromDatabase>(
                 builder: (context, value, child) => Expanded(
                   child: PageView.builder(
-                    physics:
-                        RightPageSwipeController(), // Disable left scrollling
+                    // physics:
+                    //     RightPageSwipeController(), // Disable left scrollling
 
                     controller: _pageController,
                     //set initialpage to 0 or lst page visited
@@ -97,7 +97,6 @@ class _TestMCQState extends State<MCQScreen> {
                     onPageChanged: (indexx) {
                       int adjustedIndex = indexx + 1;
 
-                      debugPrint('onchag page $adjustedIndex');
                       setState(() {
                         currentindex = adjustedIndex;
                         //page chagne index for cmparing with total pages
@@ -121,6 +120,7 @@ class _TestMCQState extends State<MCQScreen> {
                               .updatedDataList[index]
                               .options![selectedAnswerposition];
                           // debugPrint("selectd answer--$ans");
+                          debugPrint('index page $index');
 
                           if (currentindex == totalQuestions) {
                             SharedPreferencesService.setTotalQuestionCount(
@@ -131,7 +131,7 @@ class _TestMCQState extends State<MCQScreen> {
                             });
                             SharedPreferencesService.setTotalQuestionCount(
                                 //pageview last page dont show onPageChanged save lst user page answer
-                                currentindex);
+                                index);
                             Future.delayed(const Duration(seconds: 1), () {
                               //updatin db and instatly geting value casue some error i.e take 2 second for fettching on last data update
                               _loadTotalNumbergetByUser();
@@ -162,12 +162,7 @@ class _TestMCQState extends State<MCQScreen> {
                       final databaseProvider =
                           Provider.of<GetUpdateDataFromDatabase>(context,
                               listen: false);
-                      SharedPreferencesService.setTotalQuestionCount(
-                          //pageview last page dont show onPageChanged save lst user page answer
-                          currentindex +
-                              1); //onclik of submit save last index in sharepref
-                      debugPrint(
-                          'save last index to in shareepref ${currentindex + 1}');
+
                       // Handle button press
                       Navigator.push(
                         context,

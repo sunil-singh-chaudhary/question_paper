@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'screen/myapp.dart';
 import 'utils/sharepref_countingpage.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPreferencesService.initializeSharedPreferences();
+  SharedPreferencesService.initializeSharedPreferences();
 
   const kbackgroudColor = Colors.green;
   SystemChrome.setSystemUIOverlayStyle(
