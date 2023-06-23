@@ -4,6 +4,7 @@ class RightPageSwipeController extends ScrollPhysics {
   RightPageSwipeController({ScrollPhysics? parent}) : super(parent: parent);
 
   bool isGoingLeft = false;
+  bool allowJumpToIndex = true; // New property to enable/disable jump to index
 
   @override
   ScrollPhysics applyTo(ScrollPhysics? ancestor) {
@@ -11,8 +12,22 @@ class RightPageSwipeController extends ScrollPhysics {
   }
 
   @override
+  bool shouldAcceptUserOffset(ScrollMetrics position) {
+    return true;
+  }
+
+  // @override
+  // double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+  //   return offset;
+  // }
+
+  @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
     isGoingLeft = offset.sign < 0;
+    if (!isGoingLeft) {
+      // Set isGoingLeft to false when scrolling to the right
+      isGoingLeft = false;
+    }
     return super.applyPhysicsToUserOffset(position, offset);
   }
 
@@ -34,6 +49,12 @@ class RightPageSwipeController extends ScrollPhysics {
       }
       return true;
     }());
+
+    if (!allowJumpToIndex) {
+      // If jumping to index is not allowed, return 0 to disable jumping
+      return 0.0;
+    }
+
     if (value < position.pixels &&
         position.pixels <= position.minScrollExtent) {
       return (value - position.pixels);
@@ -57,5 +78,6 @@ class RightPageSwipeController extends ScrollPhysics {
       return value - position.pixels;
     }
     return 0.0;
+    // return super.applyBoundaryConditions(position, value);
   }
 }

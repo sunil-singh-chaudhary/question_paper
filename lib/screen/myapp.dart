@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:question_paper/screen/mcq_screen.dart';
 
 import '../Qbloc/question_cubit.dart';
 import '../services/updated_database_provider.dart';

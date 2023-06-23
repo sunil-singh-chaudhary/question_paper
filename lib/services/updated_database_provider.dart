@@ -64,7 +64,10 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
   }
 
   Future<List<Map<String, dynamic>>> getTotalresultCount() async {
-    return await db.getTotalNumber();
+    final count = await db.getTotalNumber();
+    debugPrint('db totoal right --$count');
+    await getData();
+    return count;
   }
 
   Future<void> updateSelectedAnswer(

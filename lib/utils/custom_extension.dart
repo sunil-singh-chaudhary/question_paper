@@ -5,6 +5,7 @@ extension CustomTextStyle on TextStyle {
     return TextStyle(
       color: color,
       fontSize: fontSize,
+      fontWeight: FontWeight.bold,
     );
   }
 }

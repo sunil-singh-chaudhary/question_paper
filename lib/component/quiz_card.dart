@@ -16,7 +16,8 @@ class QuizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      elevation: 7,
       margin: const EdgeInsets.all(8),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -24,13 +25,16 @@ class QuizCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Question:${model.question} - ${model.id}',
-              // style: questionStyle,
+              'Question:${position + 1} ',
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               model.question!,
-              style: answerStyle,
+              style: questionStyle,
             ),
             const SizedBox(height: 16),
             const Text(

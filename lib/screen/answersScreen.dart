@@ -14,23 +14,27 @@ class AnswerScreen extends StatefulWidget {
 class _AnswerScreenState extends State<AnswerScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<GetUpdateDataFromDatabase>(
-      builder: (context, value, child) {
-        if (value.hasData) {
-          return ListView.builder(
-            itemCount: value.updatedDataList.length,
-            itemBuilder: (context, index) {
-              return QuizCard(
-                position: index,
-                model: value.updatedDataList[index],
-              );
-            },
-          );
-        } else {
-          return const Text("No data Found");
-          // or show a different widget indicating no data
-        }
-      },
+    return Scaffold(
+      backgroundColor: Colors.white70,
+      body: Consumer<GetUpdateDataFromDatabase>(
+        builder: (context, value, child) {
+          if (value.hasData) {
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: value.updatedDataList.length,
+              itemBuilder: (context, index) {
+                return QuizCard(
+                  position: index,
+                  model: value.updatedDataList[index],
+                );
+              },
+            );
+          } else {
+            return const Text("No data Found");
+            // or show a different widget indicating no data
+          }
+        },
+      ),
     );
   }
 }
