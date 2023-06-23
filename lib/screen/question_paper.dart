@@ -53,7 +53,7 @@ class QuestionPaper extends StatelessWidget {
               return Center(
                 child: Text(
                   'NO data Found $error',
-                  style: const TextStyle().withColorAndSize(Colors.red, 22),
+                  style: const TextStyle().withColorAndSize(Colors.red, 18),
                 ), //using extension
               );
             }

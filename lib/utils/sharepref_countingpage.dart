@@ -16,19 +16,19 @@ class SharedPreferencesService {
   }
 
   static Future<int> getTotalQuestionCount() async {
-    final prefs = await getSharedPreferencesInstance();
-    return prefs.getInt('totalQuestionCount') ?? 1;
+    // final prefs = await getSharedPreferencesInstance();
+    return _sharedPreferences!.getInt('totalQuestionCount') ?? 1;
   }
 
   static Future<void> setTotalQuestionCount(int count) async {
-    final prefs = await getSharedPreferencesInstance();
+    // final prefs = await getSharedPreferencesInstance();
     debugPrint('last page save in index is -$count');
 
-    await prefs.setInt('totalQuestionCount', count);
+    await _sharedPreferences!.setInt('totalQuestionCount', count);
   }
 
   static gotoNextScreen(PageController _pageController) {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       SharedPreferencesService.getTotalQuestionCount().then(
         (value) {
           int nextPage = value + 1;
@@ -54,7 +54,8 @@ class SharedPreferencesService {
           if (value == 1) {
             nextPage = value;
           } else {
-            nextPage = value + 1; //
+            nextPage = value +
+                1; // increase one page where user give answer on the last page after restart app
           }
           debugPrint('Jumped to before index $nextPage in shared preferences');
 

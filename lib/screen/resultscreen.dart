@@ -47,7 +47,7 @@ class _ResultScreenState extends State<ResultScreen> {
           ),
         ],
       ),
-      bottomNavigationBar:
+      bottomNavigationBar: //pass databaseprovidder because it is in different root so we can pass it to easily use it
           BottomNavigationBarSection(databaseProvider: databaseProvider),
     );
   }

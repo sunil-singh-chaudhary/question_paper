@@ -8,7 +8,7 @@ import '../services/updated_database_provider.dart';
 // ignore: must_be_immutable
 class QuestionWidget extends StatefulWidget {
   final QuestionModel question;
-  final Function(int) onAnswerSelected;
+  final Function(int) onAnswerSelected; //callback fun
   String? selectedRadioAnswer;
   String? userSavedresult;
   List<bool> isSelectedList = List<bool>.filled(5, false);

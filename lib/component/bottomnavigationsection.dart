@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:question_paper/utils/custom_extension.dart';
 
 import '../screen/answersScreen.dart';
 import '../services/updated_database_provider.dart';
@@ -28,14 +29,10 @@ class BottomNavigationBarSection extends StatelessWidget {
         margin: const EdgeInsets.all(20),
         height: 50,
         color: Colors.grey[800],
-        child: const Center(
+        child: Center(
           child: Text(
-            "Check all answers",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            "Check all Answers",
+            style: const TextStyle().withColorAndSize(Colors.white, 20),
           ),
         ),
       ),

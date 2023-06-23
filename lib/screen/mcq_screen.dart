@@ -36,7 +36,8 @@ class _TestMCQState extends State<MCQScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      SharedPreferencesService.gotoLastUserloadsharedpref(_pageController);
+      SharedPreferencesService.gotoLastUserloadsharedpref(
+          _pageController); //user left last screen go on app start
     });
   }
 
@@ -53,22 +54,20 @@ class _TestMCQState extends State<MCQScreen> {
                 builder: (context, value, child) {
               totalQuestions = value.totaldata;
               return Container(
-                  height: 35,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                height: 35,
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Text(
+                    '$currentindex/${value.totaldata}',
+                    style: const TextStyle()
+                        .withColorAndSize(const Color(0xFF01122E), 14),
                   ),
-                  child: Center(
-                    child: Text(
-                      '$currentindex/${value.totaldata}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF01122E),
-                      ),
-                    ),
-                  ));
+                ),
+              );
             }),
           ),
         ],
@@ -81,8 +80,8 @@ class _TestMCQState extends State<MCQScreen> {
             children: [
               Center(
                 child: Text("Question",
-                    style: const TextStyle()
-                        .withColorAndSize(Colors.black, 22)), //using extension
+                    style: const TextStyle().withColorAndSize(
+                        Colors.black, 22)), //using custom extension
               ),
               const SizedBox(height: 22.0),
               Consumer<GetUpdateDataFromDatabase>(
@@ -119,7 +118,6 @@ class _TestMCQState extends State<MCQScreen> {
                               //print the selected answer from the list of options
                               .updatedDataList[index]
                               .options![selectedAnswerposition];
-                          // debugPrint("selectd answer--$ans");
                           debugPrint('index page $index');
 
                           if (currentindex == totalQuestions) {
@@ -129,9 +127,10 @@ class _TestMCQState extends State<MCQScreen> {
                               isLastAnswerGiven = true;
                               //show  button when last answer given by user
                             });
+                            //pageview last page didnt show onPageChanged so here we save lst user page answer
                             SharedPreferencesService.setTotalQuestionCount(
-                                //pageview last page dont show onPageChanged save lst user page answer
                                 index);
+
                             Future.delayed(const Duration(seconds: 1), () {
                               //updatin db and instatly geting value casue some error i.e take 2 second for fettching on last data update
                               _loadTotalNumbergetByUser();
@@ -141,7 +140,6 @@ class _TestMCQState extends State<MCQScreen> {
                             //Now Set Curret Page USer Visited in shredpreferences
                             SharedPreferencesService.setTotalQuestionCount(
                                 index); //index start form 0
-                            setState(() {});
                             SharedPreferencesService.gotoNextScreen(
                                 _pageController);
                           }
