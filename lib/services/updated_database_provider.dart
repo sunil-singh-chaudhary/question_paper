@@ -66,7 +66,8 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
   Future<List<Map<String, dynamic>>> getTotalresultCount() async {
     final count = await db.getTotalNumber();
     debugPrint('db totoal right --$count');
-    await getData();
+    // await getData();
+    notifyListeners();
     return count;
   }
 

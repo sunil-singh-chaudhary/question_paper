@@ -16,10 +16,7 @@ class RightPageSwipeController extends ScrollPhysics {
     return true;
   }
 
-  // @override
-  // double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-  //   return offset;
-  // }
+
 
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {

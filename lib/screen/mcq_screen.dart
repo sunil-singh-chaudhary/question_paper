@@ -12,6 +12,9 @@ import '../utils/sharepref_countingpage.dart';
 
 // ignore: must_be_immutable
 class MCQScreen extends StatefulWidget {
+  static final GlobalKey<_TestMCQState> mcqScreenStateKey =
+      GlobalKey<_TestMCQState>();
+
   String fromwhere;
   MCQScreen({super.key, required this.fromwhere});
 
@@ -50,10 +53,16 @@ class _TestMCQState extends State<MCQScreen> {
         const Duration(seconds: 1),
         () {
           SharedPreferencesService.getTotalQuestionCount().then((value) {
-            final nextPage = value + 1;
+            int? nextPage;
 
+            if (value == 1) {
+              nextPage = value;
+            } else {
+              nextPage = value +
+                  1; // increase one page where user give answer on the last page after restart app
+            }
             setState(() {
-              currentindex = nextPage;
+              currentindex = nextPage!;
               _pageController = PageController(
                   initialPage: nextPage); // set last user location +1
             });
@@ -127,9 +136,6 @@ class _TestMCQState extends State<MCQScreen> {
                                     //page chagne index for cmparing with total pages
                                     if (currentindex == totalQuestions &&
                                         isLastAnswerGiven) {
-                                      debugPrint(
-                                          'answergive done save sharepref');
-
                                       nextscreen = true;
                                       //show nextscreen result when all answer given by user
                                     } else {
@@ -160,13 +166,6 @@ class _TestMCQState extends State<MCQScreen> {
                                         //pageview last page didnt show onPageChanged so here we save lst user page answer
                                         SharedPreferencesService
                                             .setTotalQuestionCount(index);
-
-                                        Future.delayed(
-                                            const Duration(seconds: 1), () {
-                                          //updatin db and instatly getting value casue some error i.e take 2 second for fettching on last data update
-                                          _loadTotalNumbergetByUser();
-                                          //get corrrect anwer from db and sum them up
-                                        });
                                       } else {
                                         //Now Set Curret Page USer Visited in shredpreferences
                                         SharedPreferencesService
@@ -196,6 +195,7 @@ class _TestMCQState extends State<MCQScreen> {
                             final databaseProvider =
                                 Provider.of<GetUpdateDataFromDatabase>(context,
                                     listen: false);
+                            _loadTotalNumbergetByUser(); //get all data on click
                             setState(() {
                               showDialogInProgress = true; // Show the dialog
                             });
