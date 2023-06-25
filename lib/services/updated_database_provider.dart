@@ -8,11 +8,8 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
   List<QuestionModel> _data = [];
   List<QuestionModel> get updatedDataList => _data;
 
-  List<Map<String, dynamic>> _getTotolresult = [];
-  List<Map<String, dynamic>> get getTotolresult => _getTotolresult;
-
-  bool _hasData = false;
   //for checking database has data or it is corrently empty
+  bool _hasData = false;
   bool get hasData => _hasData;
 
   String? _savedResult;
@@ -81,7 +78,6 @@ class GetUpdateDataFromDatabase extends ChangeNotifier {
 
   Future<String> getresultFromDdusingID(String questionid) async {
     String answer = await db.getValueById(questionid);
-    // debugPrint('user answer in Database--$answer');
 
     return answer;
   }

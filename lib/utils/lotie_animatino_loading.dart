@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:question_paper/utils/custom_extension.dart';
 
@@ -22,7 +21,7 @@ class LottieUtils {
         ),
         Text(
           'Loading...',
-          style: const TextStyle().withColorAndSize(Colors.red, 18),
+          style: const TextStyle().withColorAndSize(Colors.red, 22),
         )
       ],
     );

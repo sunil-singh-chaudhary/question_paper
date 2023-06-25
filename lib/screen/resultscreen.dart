@@ -25,6 +25,8 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen> {
   late ConfettiController _controllerCenter; //confetti animation
+  double? successPercentage;
+  double? failedPercentage;
   @override
   void initState() {
     super.initState();
@@ -45,11 +47,9 @@ class _ResultScreenState extends State<ResultScreen> {
     final databaseProvider =
         Provider.of<GetUpdateDataFromDatabase>(context, listen: false);
     //calculate percent of success and failure
-    final double successPercentage =
-        (widget.correctAnswers / widget.totalQuestions) * 100;
-    final double failedPercentage =
-        (widget.incorrectAnswers / widget.totalQuestions) * 100;
-    successPercentage > 75
+    successPercentage = (widget.correctAnswers / widget.totalQuestions) * 100;
+    failedPercentage = (widget.incorrectAnswers / widget.totalQuestions) * 100;
+    successPercentage! > 75
         ? _controllerCenter.play()
         : null; //play star animation in result screen when answer is 75 percent and above
 
@@ -73,8 +73,8 @@ class _ResultScreenState extends State<ResultScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ContentSection(
-              failedPercentage: failedPercentage,
-              successPercentage: successPercentage,
+              failedPercentage: failedPercentage!,
+              successPercentage: successPercentage!,
               correctAnswers: widget.correctAnswers,
               totalQuestions: widget.totalQuestions,
               incorrectAnswers: widget.incorrectAnswers,

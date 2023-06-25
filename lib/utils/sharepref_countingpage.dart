@@ -28,7 +28,7 @@ class SharedPreferencesService {
   }
 
   static gotoNextScreen(PageController _pageController) {
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 2), () {
       SharedPreferencesService.getTotalQuestionCount().then(
         (value) {
           int nextPage = value + 1;

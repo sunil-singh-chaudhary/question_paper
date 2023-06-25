@@ -43,7 +43,7 @@ class QuestionPaper extends StatelessWidget {
             // Handle the error state
             final error = state.error;
             if (Provider.of<GetUpdateDataFromDatabase>(context).hasData) {
-              //checking if database has data thenshow else print erorr
+              //checking if database has data then show else print erorr
               Provider.of<GetUpdateDataFromDatabase>(context).updatedDataList;
 
               return MCQScreen(

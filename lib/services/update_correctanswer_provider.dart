@@ -9,4 +9,13 @@ class GetUpdatedAnswer extends ChangeNotifier {
     debugPrint('notifiy sum--$_correctAnswer');
     notifyListeners();
   }
+
+  bool _isNextScreen = false;
+  bool get isNextScreen => _isNextScreen;
+
+  updateisLastAnswerGiven(bool flag) async {
+    _isNextScreen = flag;
+    debugPrint('_isNextScreen notify --$_isNextScreen');
+    notifyListeners();
+  }
 }

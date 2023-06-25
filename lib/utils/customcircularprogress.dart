@@ -42,12 +42,12 @@ class CustomCircularProgressIndicator extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('${successPercentage.toStringAsFixed(1)}%',
-                    style: const TextStyle()
-                        .withColorAndSize(Colors.green, 15)), //using extension
+                    style: const TextStyle().withColorAndSize(
+                        Colors.green, 15)), //using custom extension
 
                 Text('Success',
-                    style: const TextStyle()
-                        .withColorAndSize(Colors.green, 15)), //using extension
+                    style: const TextStyle().withColorAndSize(
+                        Colors.green, 15)), //using custom extension
               ],
             ),
           ),
