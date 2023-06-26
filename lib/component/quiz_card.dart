@@ -56,7 +56,7 @@ class QuizCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              model.selectedAnswer ?? 'no data',
+              model.selectedAnswer ?? 'No Answer selected',
               style: TextStyle(
                 fontSize: 16,
                 color: model.correctAnswer == model.selectedAnswer

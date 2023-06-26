@@ -14,8 +14,7 @@ import '../utils/sharepref_countingpage.dart';
 
 // ignore: must_be_immutable
 class MCQScreen extends StatefulWidget {
-  String fromwhere;
-  MCQScreen({super.key, required this.fromwhere});
+  MCQScreen({super.key});
   @override
   State<MCQScreen> createState() => _TestMCQState();
 }
@@ -162,7 +161,7 @@ class _TestMCQState extends State<MCQScreen> {
                                           'curr ${index + 1} and tatolq- $totalQuestions and is $isLastAnswerGiven');
                                       if ((index + 1) == totalQuestions) {
                                         SharedPreferencesService
-                                            .setTotalQuestionCount(index + 1);
+                                            .setTotalQuestionCount(index);
                                         setState(() {
                                           isLastAnswerGiven = true;
 
@@ -178,11 +177,11 @@ class _TestMCQState extends State<MCQScreen> {
 
                                         //pageview last page didnt show onPageChanged so here we save lst user page answer
                                         SharedPreferencesService
-                                            .setTotalQuestionCount(index + 1);
+                                            .setTotalQuestionCount(index);
                                       } else {
                                         //Now Set Curret Page USer Visited in shredpreferences
                                         SharedPreferencesService
-                                            .setTotalQuestionCount(index + 1);
+                                            .setTotalQuestionCount(index);
                                         SharedPreferencesService.gotoNextScreen(
                                             _pageController!);
                                         //go to next page when any answer selected

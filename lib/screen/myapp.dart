@@ -34,10 +34,10 @@ class MyApp extends StatelessWidget {
                     listen: false);
 
                 if (databaseProvider.hasData) {
-                  return const Column(
+                  return Column(
                     children: [
                       QuestionPaper(),
-                      AnswerScreen(),
+                      const AnswerScreen(),
                     ],
                   );
                 } else {
@@ -49,10 +49,10 @@ class MyApp extends StatelessWidget {
           ), //when app start it will fetch defaul db value
           ChangeNotifierProvider(
             create: (_) => GetUpdatedAnswer(),
-            child: MCQScreen(fromwhere: ''),
-          )
+            child: MCQScreen(),
+          ),
         ],
-        child: const QuestionPaper(),
+        child: QuestionPaper(),
       ),
     );
   }

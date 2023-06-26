@@ -45,7 +45,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 Provider.of<GetUpdateDataFromDatabase>(context)
                     .getresultFromDdusingID(widget.questionModel.id!)
                     .then((value) {
-                  // debugPrint('value-- $value');
                   if (mounted) {
                     setState(() {
                       widget.userSavedresult = value;
