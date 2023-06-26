@@ -18,7 +18,6 @@ class QuestionCubit extends Cubit<QuestionState> {
       eventSource!.listen((event) {
         emit(QuestionStatus.loading);
         final jsonData = event.data;
-        // debugPrint('cubit--> $jsonData');
         final dataMap = jsonDecode(jsonData!);
 
         try {
@@ -27,7 +26,6 @@ class QuestionCubit extends Cubit<QuestionState> {
         } catch (e) {
           emit(QuestionError(e.toString()));
         }
-
         // Emit a new state with the updated list
       });
     } catch (e) {

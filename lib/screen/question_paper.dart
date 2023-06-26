@@ -21,7 +21,7 @@ class QuestionPaper extends StatelessWidget {
   Widget build(BuildContext context) {
     internetConnectivity.startMonitoring(context).then(
           (value) => {
-            debugPrint('started monitoring internet in main'),
+            debugPrint('started monitoring internet'),
           },
         );
     return Scaffold(
